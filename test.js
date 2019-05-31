@@ -1,3 +1,5 @@
+var cart = [];
+
 // Ejercicio 2 agregar un producto a la carretilla
 var cflAddToCart = (productId, quantity, callback) => {
     try {
@@ -13,23 +15,26 @@ var cflAddToCart = (productId, quantity, callback) => {
 
 // Ejercicio 3 devolver todos los productos del carrito en un especifico formato
 var cflGetCart = (callback) => {
-    var cart;
+    var cartPayload = {
+        items: [],
+        currency: "",
+    };
     try {
         // Este array es el de los items para luego darles formato lo declare solo asi, por que no se si estan en el storage o como se obtienen.
-        const itemsInCart = Array;
-        itemsInCart.forEach(itemInCart => {
-            cart.items.append({
-                id: itemInCart.id,
-                name: itemInCart.name,
-                price: itemInCart.price,
-                originalPrice: itemInCart.originalPrice,
-                quantity: itemInCart.quantity
+        const itemsInCart = cart;
+        itemsInCart.forEach( function (value) {
+            cartPayload.items.push({
+                id: value.id,
+                name: value.name,
+                price: value.price,
+                originalPrice: value.originalPrice,
+                quantity: value.quantity
             });
         });
-        cart.currency = 'USD';
-        callback(null, cart);
+        cartPayload.currency = 'USD';
+        callback(null, cartPayload);
     } catch (error) {
-        callback(error, cart);
+        callback(error, cartPayload);
     }
 }
 
